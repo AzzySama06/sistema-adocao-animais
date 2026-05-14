@@ -19,7 +19,7 @@ const logger = {
   error: (msg, err) => console.error(`[ERROR] ${new Date().toISOString()} - ${msg}`, err?.message || err || ""),
 };
 
-const ESPECIES_VALIDAS = ["cao", "gato"];
+const ESPECIES_VALIDAS = ["cao", "gato", "outros"];
 const PORTES_VALIDOS = ["Pequeno", "Médio", "Grande"];
 const TAMANHO_MAXIMO_IMAGEM = 2 * 1024 * 1024;
 const TAMANHO_MAXIMO_NOME = 100;
@@ -519,13 +519,12 @@ app.post("/animais", exigirAdmin, async (req, res) => {
       });
     }
 
-    // Espécie pode ser qualquer string válida, removida validação restrita
-    // if (!ESPECIES_VALIDAS.includes(especieTrimmed)) {
-    //   logger.warn(`POST /animais - Espécie inválida: '${especieTrimmed}'`);
-    //   return res.status(400).json({
-    //     erro: `Espécie deve ser uma das seguintes: ${ESPECIES_VALIDAS.join(", ")}.`,
-    //   });
-    // }
+    if (!ESPECIES_VALIDAS.includes(especieTrimmed)) {
+      logger.warn(`POST /animais - Espécie inválida: '${especieTrimmed}'`);
+      return res.status(400).json({
+        erro: `Espécie deve ser uma das seguintes: ${ESPECIES_VALIDAS.join(", ")}.`,
+      });
+    }
 
     if (!PORTES_VALIDOS.includes(porteTrimmed)) {
       logger.warn(`POST /animais - Porte inválido: '${porteTrimmed}'`);
