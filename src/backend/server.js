@@ -519,12 +519,13 @@ app.post("/animais", exigirAdmin, async (req, res) => {
       });
     }
 
-    if (!ESPECIES_VALIDAS.includes(especieTrimmed)) {
-      logger.warn(`POST /animais - Espécie inválida: '${especieTrimmed}'`);
-      return res.status(400).json({
-        erro: `Espécie deve ser uma das seguintes: ${ESPECIES_VALIDAS.join(", ")}.`,
-      });
-    }
+    // Espécie pode ser qualquer string válida, removida validação restrita
+    // if (!ESPECIES_VALIDAS.includes(especieTrimmed)) {
+    //   logger.warn(`POST /animais - Espécie inválida: '${especieTrimmed}'`);
+    //   return res.status(400).json({
+    //     erro: `Espécie deve ser uma das seguintes: ${ESPECIES_VALIDAS.join(", ")}.`,
+    //   });
+    // }
 
     if (!PORTES_VALIDOS.includes(porteTrimmed)) {
       logger.warn(`POST /animais - Porte inválido: '${porteTrimmed}'`);
@@ -604,8 +605,12 @@ app.get("/animais", async (req, res) => {
     const valores = [];
 
     if (especie) {
-      valores.push(especie);
-      filtros.push(`LOWER(especie) = LOWER($${valores.length})`);
+      if (especie.toLowerCase() === "outros") {
+        filtros.push(`LOWER(especie) NOT IN ('cao', 'gato')`);
+      } else {
+        valores.push(especie);
+        filtros.push(`LOWER(especie) = LOWER($${valores.length})`);
+      }
     }
 
     if (porte) {

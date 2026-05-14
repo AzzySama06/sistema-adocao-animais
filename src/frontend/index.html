@@ -49,11 +49,7 @@
 
       <div class="form-row">
         <div class="form-group">
-          <select id="especie" required>
-            <option value="">Selecione a espécie</option>
-            <option value="cao">🐶 Cão</option>
-            <option value="gato">🐱 Gato</option>
-          </select>
+          <input type="text" id="especie" placeholder="Espécie (ex: Cão, Gato, Coelho)" required>
         </div>
 
         <div class="form-group">
@@ -99,6 +95,7 @@
           <button class="btn btn-filter active" onclick="filtrar('todos')">Todos</button>
           <button class="btn btn-filter" onclick="filtrar('cao')">🐶 Cães</button>
           <button class="btn btn-filter" onclick="filtrar('gato')">🐱 Gatos</button>
+          <button class="btn btn-filter" onclick="filtrar('outros')">🐾 Outros</button>
         </div>
       </div>
 
