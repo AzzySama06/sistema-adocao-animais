@@ -80,10 +80,10 @@ body {
 .hero {
   background: linear-gradient(rgba(107, 70, 193, 0.75), rgba(90, 59, 165, 0.75)), 
               url('../img/various-breeds-of-dogs-peek-out-from-behind-a-wooden-fence-concept-for-pets-veterinary-clinic-or-nutrition-food-for-dogs-banner-with-space-for-text-photo.jpg');
-  background-size: contain;
-  background-position: center -450%;
+  background-size: cover;
+  background-position: center 50%;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
   padding: 4rem 2rem;
   text-align: center;
   margin-bottom: 3rem;
